@@ -17,9 +17,21 @@ namespace ManVan
 
         private void Cancel_OnClick(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to cancel this new entry?", "Cancel",
-                MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.No) return;
+            var vm = new ConfirmViewModel()
+            {
+                NegativeLabel = "No",
+                AffirmativeLabel = "Yes",
+                Caption = "Cancel New Entry?",
+                Message = "Are you sure you want to cancel this new entry?"
+            };
+
+            var window = new ConfirmWindow
+            {
+                DataContext = vm,
+            };
+
+            window.ShowDialog();
+            if (vm.Result == ConfirmResult.Negative) return;
             DialogResult = false;
             Close();
         }
@@ -52,10 +64,23 @@ namespace ManVan
 
         private void Delete_OnClick(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this entry?\n" +
-                                         "This action cannot be undone.", "Delete Entry",
-                MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.No) return;
+            var vm = new ConfirmViewModel()
+            {
+                NegativeLabel = "No",
+                AffirmativeLabel = "Yes",
+                Caption = "Delete Entry?",
+                Message = "Are you sure you want to delete this entry?\n" +
+                          "This action cannot be undone."
+            };
+
+            var window = new ConfirmWindow
+            {
+                DataContext = vm,
+            };
+
+            window.ShowDialog();
+
+            if (vm.Result == ConfirmResult.Negative) return;
             DialogResult = false;
             Close();
         }

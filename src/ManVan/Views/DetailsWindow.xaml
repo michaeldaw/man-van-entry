@@ -86,7 +86,9 @@
 
         <StackPanel Margin="0,5" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label Style="{DynamicResource FormLabelStyle}" Content="How did you hear&#x0a;about the clinic?"></Label>
-            <TextBox Margin="5,0" Width="220" Text="{Binding ReferralMethod}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
+            <TextBox Margin="5,0" Width="220" Text="{Binding ReferralMethod}"
+                     Style="{DynamicResource FormTextBoxStyle}"
+                     TextWrapping="Wrap"></TextBox>
         </StackPanel>
 
         <Button Grid.Row="10" Grid.Column="0" Style="{StaticResource DeleteButton}"

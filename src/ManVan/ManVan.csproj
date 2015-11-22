@@ -55,27 +55,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddressBookViewModel.cs" />
-    <Compile Include="AddressBookWindow.xaml.cs">
+    <Compile Include="ViewModels\AddressBookViewModel.cs" />
+    <Compile Include="Views\AddressBookWindow.xaml.cs">
       <DependentUpon>AddressBookWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DetailsWindow.xaml.cs">
+    <Compile Include="Commands\ClearCommand.cs" />
+    <Compile Include="ViewModels\ConfirmViewModel.cs" />
+    <Compile Include="Views\ConfirmWindow.xaml.cs">
+      <DependentUpon>ConfirmWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailsWindow.xaml.cs">
       <DependentUpon>DetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\EntryViewModel.cs" />
+    <Compile Include="Commands\ExportCommand.cs" />
+    <Compile Include="Commands\ExportLabelsCommand.cs" />
+    <Compile Include="Commands\ImportCommand.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Models\AddressBookModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Commands\NewEntryCommand.cs" />
+    <Compile Include="Commands\OpenDetailsCommand.cs" />
     <Compile Include="Services\LeitzAddressBookService.cs" />
     <Compile Include="Services\LocalDataService.cs" />
-    <Page Include="AddressBookWindow.xaml">
+    <Page Include="Views\AddressBookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DetailsWindow.xaml">
+    <Page Include="Views\ConfirmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\DetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -83,7 +98,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
