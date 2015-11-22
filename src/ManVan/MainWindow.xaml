@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ManVan"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Man Van Data Entry" Height="350" Width="900">
+        Title="Man Van Data Entry" Height="350" Width="900" Background="#FFF8F8F8" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:MainWindowViewModel></local:MainWindowViewModel>
     </Window.DataContext>
@@ -46,8 +46,15 @@
                 <DataGridTextColumn Header="PSA" Width="50" Binding="{Binding PsaValue}"></DataGridTextColumn>
                 <DataGridHyperlinkColumn 
                     Header="Details" Width="60" 
-                    Binding="{Binding Source={StaticResource HyperlinkString}}"
-                    ElementStyle="{StaticResource HyperlinkStyle}">
+                    Binding="{Binding Source={StaticResource HyperlinkString}}">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="{StaticResource ButtonBackgroundBrush}"></Setter>
+                            <Setter Property="FontSize" Value="14"></Setter>
+                            <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+                            <EventSetter Event="Hyperlink.Click"  Handler="EventSetter_OnHandler"></EventSetter>
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
                 </DataGridHyperlinkColumn>
             </DataGrid.Columns> 
         </DataGrid>

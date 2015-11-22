@@ -1,0 +1,96 @@
+﻿<Window x:Class="ManVan.DetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManVan"
+        mc:Ignorable="d"
+        Title="Details" Height="385" Width="350" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Loaded="DetailsWindow_OnLoaded"
+        KeyDown="DetailsWindow_OnKeyDown"
+        >
+    <Window.DataContext>
+        <local:MainEntryViewModel></local:MainEntryViewModel>
+    </Window.DataContext>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0">First Name:</Label>
+        <TextBox x:Name="TextBoxFirst" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding FirstName}"></TextBox>
+
+        <Label Grid.Column="0"  Grid.Row="1">Last Name:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="{Binding LastName}"></TextBox>
+
+        <Label Grid.Column="0"  Grid.Row="2">Birth Date:</Label>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+            <Label>Y:</Label>
+            <TextBox VerticalAlignment="Center" Width="35" Text="{Binding Year}" GotFocus="UIElement_OnGotFocus"></TextBox>
+            <Label>M:</Label>
+            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Month}" GotFocus="UIElement_OnGotFocus"></TextBox>
+            <Label>D:</Label>
+            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Day}" GotFocus="UIElement_OnGotFocus"></TextBox>
+        </StackPanel>
+
+        <Label Grid.Column="0"  Grid.Row="3">Street Address:</Label>
+        <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Text="{Binding Address}"></TextBox>
+
+        <Label Grid.Column="0"  Grid.Row="4">City:</Label>
+        <TextBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Text="{Binding City}"></TextBox>
+
+        <Label Grid.Column="0"  Grid.Row="5">Province:</Label>
+        <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Text="AB" SelectedItem="{Binding Province}">
+            <ComboBoxItem>AB</ComboBoxItem>
+            <ComboBoxItem>BC</ComboBoxItem>
+            <ComboBoxItem>MB</ComboBoxItem>
+            <ComboBoxItem>NL</ComboBoxItem>
+            <ComboBoxItem>NT</ComboBoxItem>
+            <ComboBoxItem>NS</ComboBoxItem>
+            <ComboBoxItem>NU</ComboBoxItem>
+            <ComboBoxItem>ON</ComboBoxItem>
+            <ComboBoxItem>PE</ComboBoxItem>
+            <ComboBoxItem>QC</ComboBoxItem>
+            <ComboBoxItem>SK</ComboBoxItem>
+            <ComboBoxItem>YT</ComboBoxItem>
+        </ComboBox>
+
+        <Label Grid.Column="0"  Grid.Row="6">Postal Code:</Label>
+        <TextBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Text="{Binding PostalCode}"></TextBox>
+
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="0">
+            <Label>Prior PSA:</Label>
+            <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding PriorPsa}"></CheckBox>
+            <Label>Family Doctor:</Label>
+            <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding FamilyDoctor}"></CheckBox>
+            <Label>Family History:</Label>
+            <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding FamilyHistory}"></CheckBox>
+        </StackPanel>
+
+        <Label Grid.Column="0"  Grid.Row="8">PSA:</Label>
+        <TextBox Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" Text="{Binding PsaValue}" GotFocus="UIElement_OnGotFocus"></TextBox>
+
+        <Label Grid.Column="0"  Grid.Row="9" Content="How did you hear&#x0a;about the clinic?"></Label>
+        <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding ReferralMethod}"></TextBox>
+
+        <Grid Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,15">
+            <Button x:Name="CancelButton" HorizontalAlignment="Left" Margin="10,0" Width="75" Click="Cancel_OnClick" Visibility="Hidden">Cancel</Button>
+            <Button HorizontalAlignment="Right" Margin="10,0" Width="75" Click="Save_OnClick">Save</Button>
+        </Grid>
+
+    </Grid>
+</Window>

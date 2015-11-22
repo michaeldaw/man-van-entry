@@ -55,10 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DetailsWindow.xaml.cs">
+      <DependentUpon>DetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Models\AddressBookModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Services\LeitzAddressBookService.cs" />
+    <Compile Include="Services\LocalDataService.cs" />
+    <Page Include="DetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

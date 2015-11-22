@@ -10,13 +10,6 @@
     <SolidColorBrush Color="DarkOrange" x:Key="ButtonPressedBackgroundBrush"></SolidColorBrush>
     <SolidColorBrush Color="Gray" x:Key="ButtonDisabledBackgroundBrush"></SolidColorBrush>
 
-    <Style TargetType="{x:Type TextBlock}" x:Key="HyperlinkStyle">
-        <Setter Property="Foreground" Value="{StaticResource ButtonBackgroundBrush}"></Setter>
-        <Setter Property="FontSize" Value="16"></Setter>
-        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-    </Style>
-
     <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="ColumnHeaderStyle">
         <Setter Property="Height" Value="60"></Setter>
         <Setter Property="Background" Value="LightBlue"></Setter>

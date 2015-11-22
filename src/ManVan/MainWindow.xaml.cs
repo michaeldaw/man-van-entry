@@ -24,5 +24,13 @@ namespace ManVan
         {
             InitializeComponent();
         }
+
+        public MainWindowViewModel ViewModel =>
+            (MainWindowViewModel) DataContext;
+
+        private void EventSetter_OnHandler(object sender, RoutedEventArgs e)
+        {
+            ViewModel.OpenDetailsCommand.Execute(null);
+        }
     }
 }                                                                               

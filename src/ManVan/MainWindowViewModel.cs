@@ -3,11 +3,18 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ManVan
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        public MainWindowViewModel()
+        {
+            OpenDetailsCommand = new OpenDetailsCommand(this);
+        }
+
+        public OpenDetailsCommand OpenDetailsCommand { get; }
 
         private Visibility _exportVisibility;
 
@@ -32,8 +39,8 @@ namespace ManVan
                     },
                     new MainEntryViewModel()
                     {
-                        FirstName = "Michael",
-                        LastName = "Daw",
+                        FirstName = "CHapped",
+                        LastName = "Ass",
                         Age = 34,
                         FamilyDoctor = true,
                     },
@@ -150,6 +157,38 @@ namespace ManVan
             var age = today.Year - Birthdate.Year;
             if (Birthdate > today.AddYears(-age)) age--;
             Age = age;
+        }
+    }
+
+    public class OpenDetailsCommand : ICommand
+    {
+        private readonly MainWindowViewModel _viewModel;
+
+        public OpenDetailsCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var details = new DetailsWindow
+            {
+                DataContext = _viewModel.SelectedEntry,
+                CancelButton = {Visibility = Visibility.Hidden},
+            };
+            details.ShowDialog();
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        internal virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
