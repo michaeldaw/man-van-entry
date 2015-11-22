@@ -22,7 +22,22 @@ namespace ManVan
         }
 
         public ObservableCollection<MainEntryViewModel> Entries { get; set; } =
-                new ObservableCollection<MainEntryViewModel>();
+                new ObservableCollection<MainEntryViewModel>()
+                {
+                    new MainEntryViewModel()
+                    {
+                        FirstName = "Michael",
+                        LastName = "Daw",
+                        Age = 34,
+                    },
+                    new MainEntryViewModel()
+                    {
+                        FirstName = "Michael",
+                        LastName = "Daw",
+                        Age = 34,
+                        FamilyDoctor = true,
+                    },
+                };
 
         public MainEntryViewModel SelectedEntry { get; set; }
 
