@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ManVan"
         mc:Ignorable="d"
-        Title="Details" Height="385" Width="350" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Details" Height="380" Width="370" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Loaded="DetailsWindow_OnLoaded"
         KeyDown="DetailsWindow_OnKeyDown"
         >
@@ -14,7 +14,7 @@
     </Window.DataContext>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="110"></ColumnDefinition>
+            <ColumnDefinition Width="120"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -31,29 +31,29 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0">First Name:</Label>
-        <TextBox x:Name="TextBoxFirst" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding FirstName}"></TextBox>
+        <Label Grid.Row="0" Style="{DynamicResource FormLabelStyle}">First Name:</Label>
+        <TextBox x:Name="TextBoxFirst" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding FirstName}" Style="{StaticResource FormTextBoxStyle}"></TextBox>
 
-        <Label Grid.Column="0"  Grid.Row="1">Last Name:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="{Binding LastName}"></TextBox>
+        <Label Grid.Column="0"  Grid.Row="1" Style="{DynamicResource FormLabelStyle}">Last Name:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="{Binding LastName}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
 
-        <Label Grid.Column="0"  Grid.Row="2">Birth Date:</Label>
+        <Label Grid.Column="0"  Grid.Row="2" Style="{DynamicResource FormLabelStyle}">Birth Date:</Label>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
             <Label>Y:</Label>
-            <TextBox VerticalAlignment="Center" Width="35" Text="{Binding Year}" GotFocus="UIElement_OnGotFocus"></TextBox>
+            <TextBox VerticalAlignment="Center" Width="40" Text="{Binding Year}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
             <Label>M:</Label>
-            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Month}" GotFocus="UIElement_OnGotFocus"></TextBox>
+            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Month}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
             <Label>D:</Label>
-            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Day}" GotFocus="UIElement_OnGotFocus"></TextBox>
+            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Day}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
         </StackPanel>
 
-        <Label Grid.Column="0"  Grid.Row="3">Street Address:</Label>
-        <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Text="{Binding Address}"></TextBox>
+        <Label Grid.Column="0"  Grid.Row="3" Style="{DynamicResource FormLabelStyle}">Street Address:</Label>
+        <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Text="{Binding Address}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
 
-        <Label Grid.Column="0"  Grid.Row="4">City:</Label>
-        <TextBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Text="{Binding City}"></TextBox>
+        <Label Grid.Column="0"  Grid.Row="4" Style="{DynamicResource FormLabelStyle}">City:</Label>
+        <TextBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Text="{Binding City}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
 
-        <Label Grid.Column="0"  Grid.Row="5">Province:</Label>
+        <Label Grid.Column="0"  Grid.Row="5" Style="{DynamicResource FormLabelStyle}">Province:</Label>
         <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Text="AB" SelectedItem="{Binding Province}">
             <ComboBoxItem>AB</ComboBoxItem>
             <ComboBoxItem>BC</ComboBoxItem>
@@ -69,28 +69,34 @@
             <ComboBoxItem>YT</ComboBoxItem>
         </ComboBox>
 
-        <Label Grid.Column="0"  Grid.Row="6">Postal Code:</Label>
-        <TextBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Text="{Binding PostalCode}"></TextBox>
+        <Label Grid.Column="0"  Grid.Row="6" Style="{DynamicResource FormLabelStyle}">Postal Code:</Label>
+        <TextBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Text="{Binding PostalCode}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="0">
-            <Label>Prior PSA:</Label>
+            <Label Margin="0,0,-3,0" Style="{DynamicResource FormLabelStyle}">Prior PSA:</Label>
             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding PriorPsa}"></CheckBox>
-            <Label>Family Doctor:</Label>
+            <Label Margin="5,0,-3,0" Style="{DynamicResource FormLabelStyle}">Family Doctor:</Label>
             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding FamilyDoctor}"></CheckBox>
-            <Label>Family History:</Label>
+            <Label Margin="5,0,-3,0" Style="{DynamicResource FormLabelStyle}">Family History:</Label>
             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding FamilyHistory}"></CheckBox>
         </StackPanel>
 
-        <Label Grid.Column="0"  Grid.Row="8">PSA:</Label>
-        <TextBox Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" Text="{Binding PsaValue}" GotFocus="UIElement_OnGotFocus"></TextBox>
+        <Label Grid.Column="0"  Grid.Row="8" Style="{DynamicResource FormLabelStyle}">PSA:</Label>
+        <TextBox Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" Text="{Binding PsaValue}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
 
-        <Label Grid.Column="0"  Grid.Row="9" Content="How did you hear&#x0a;about the clinic?"></Label>
-        <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding ReferralMethod}"></TextBox>
+        <StackPanel Margin="0,5" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Style="{DynamicResource FormLabelStyle}" Content="How did you hear&#x0a;about the clinic?"></Label>
+            <TextBox Margin="5,0" Width="220" Text="{Binding ReferralMethod}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
+        </StackPanel>
 
-        <Grid Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,15">
-            <Button x:Name="CancelButton" HorizontalAlignment="Left" Margin="10,0" Width="75" Click="Cancel_OnClick" Visibility="Hidden">Cancel</Button>
-            <Button HorizontalAlignment="Right" Margin="10,0" Width="75" Click="Save_OnClick">Save</Button>
-        </Grid>
+        <Button Grid.Row="10" Grid.Column="0" Style="{StaticResource DeleteButton}"
+                    x:Name="DeleteButton" HorizontalAlignment="Left" Margin="10,0" 
+                    Width="75" Click="Delete_OnClick" Visibility="Visible">Delete</Button>
+        <Button Grid.Row="10" Grid.Column="0" Style="{StaticResource ButtonOne}"
+                    x:Name="CancelButton" HorizontalAlignment="Left" Margin="10,0" 
+                    Width="75" Click="Cancel_OnClick" Visibility="Hidden">Cancel</Button>
+        <Button Grid.Row="10" Grid.Column="1" Style="{StaticResource ButtonOne}" VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" Margin="10,10" Width="75" Click="Save_OnClick">Save</Button>
 
     </Grid>
 </Window>

@@ -49,5 +49,15 @@ namespace ManVan
                 Cancel_OnClick(this, null);
             Save_OnClick(this, null);
         }
+
+        private void Delete_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to delete this entry?\n" +
+                                         "This action cannot be undone.", "Delete Entry",
+                MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.No) return;
+            DialogResult = false;
+            Close();
+        }
     }
 }

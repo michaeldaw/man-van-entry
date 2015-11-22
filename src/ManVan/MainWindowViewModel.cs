@@ -12,7 +12,11 @@ namespace ManVan
         public MainWindowViewModel()
         {
             OpenDetailsCommand = new OpenDetailsCommand(this);
+            NewEntryCommand = new NewEntryCommand(this);
+            Entries = LocalDataService.Load();
         }
+
+        public NewEntryCommand NewEntryCommand { get; }
 
         public OpenDetailsCommand OpenDetailsCommand { get; }
 
@@ -28,23 +32,7 @@ namespace ManVan
             }
         }
 
-        public ObservableCollection<MainEntryViewModel> Entries { get; set; } =
-                new ObservableCollection<MainEntryViewModel>()
-                {
-                    new MainEntryViewModel()
-                    {
-                        FirstName = "Michael",
-                        LastName = "Daw",
-                        Age = 34,
-                    },
-                    new MainEntryViewModel()
-                    {
-                        FirstName = "CHapped",
-                        LastName = "Ass",
-                        Age = 34,
-                        FamilyDoctor = true,
-                    },
-                };
+        public ObservableCollection<MainEntryViewModel> Entries { get; set; }
 
         public MainEntryViewModel SelectedEntry { get; set; }
 
@@ -77,12 +65,32 @@ namespace ManVan
         private int _month = 01;
         private int _day = 01;
         private int _age;
+        private string _lastName;
+        private string _firstName;
 
-        public Guid Id { get; set; } = new Guid();
-        public DateTime DateEntered { get; set; } = DateTime.Now;
+        public Guid Id { get; } = new Guid();
+        public DateTime DateEntered { get; } = DateTime.Now;
         public int Index { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                _firstName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int Age
         {
@@ -180,8 +188,64 @@ namespace ManVan
             {
                 DataContext = _viewModel.SelectedEntry,
                 CancelButton = {Visibility = Visibility.Hidden},
+                DeleteButton = {Visibility = Visibility.Visible},
             };
-            details.ShowDialog();
+            var result = details.ShowDialog();
+
+            if (result != null && result.Value == false)
+            {
+                _viewModel.Entries.Remove(_viewModel.SelectedEntry);
+                _viewModel.SelectedEntry = null;
+            }
+
+            LocalDataService.Save(_viewModel.Entries);
+            _viewModel.Refresh();
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        internal virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public class NewEntryCommand : ICommand
+    {
+        private readonly MainWindowViewModel _viewModel;
+
+        public NewEntryCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var entry = new MainEntryViewModel()
+            {
+                Index = _viewModel.Entries.Count + 1
+            };
+
+            var details = new DetailsWindow
+            {
+                DataContext = entry,
+                CancelButton = {Visibility = Visibility.Visible},
+                DeleteButton = {Visibility = Visibility.Hidden}
+            };
+
+            var result = details.ShowDialog();
+
+            if (result.HasValue && result.Value)
+                _viewModel.Entries.Add(entry);
+
+            if (_viewModel.Entries.Count > 0)
+                LocalDataService.Save(_viewModel.Entries);
+            _viewModel.Refresh();
         }
 
         public event EventHandler CanExecuteChanged;

@@ -10,6 +10,21 @@
     <SolidColorBrush Color="DarkOrange" x:Key="ButtonPressedBackgroundBrush"></SolidColorBrush>
     <SolidColorBrush Color="Gray" x:Key="ButtonDisabledBackgroundBrush"></SolidColorBrush>
 
+    <Style TargetType="{x:Type Label}" x:Key="FormLabelStyle">
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Key="FormTextBoxStyle">
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource ButtonBackgroundBrush}"></Setter>
+                <Setter Property="BorderThickness" Value="2"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="ColumnHeaderStyle">
         <Setter Property="Height" Value="60"></Setter>
         <Setter Property="Background" Value="LightBlue"></Setter>
@@ -26,7 +41,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Grid Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center" />
+                        <ContentPresenter VerticalAlignment="Center" Margin="3,0" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -82,5 +97,23 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonOne}" x:Key="DeleteButton">
+        <Setter Property="Background" Value="Red"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="DarkRed"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}"></Setter>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Black"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource ButtonDisabledBackgroundBrush}"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}"></Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
