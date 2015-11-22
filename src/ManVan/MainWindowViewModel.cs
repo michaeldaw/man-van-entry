@@ -7,10 +7,7 @@ namespace ManVan
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public string AddressBookDirectoryPath { get; } =
-            Environment.GetFolderPath(
-                Environment.SpecialFolder.MyDocuments) 
-                + "\\Leitz Icon\\Address Books";
+
 
 
 
