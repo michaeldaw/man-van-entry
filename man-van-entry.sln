@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F6F18F7F-4E0C-4105-8683-E62DA14CBE4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C40C63AA-7521-4BCB-8541-AE209BC4FF32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManVan", "src\ManVan\ManVan.csproj", "{B8CA9D27-F143-4BAB-8289-254391AFB2A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8CA9D27-F143-4BAB-8289-254391AFB2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8CA9D27-F143-4BAB-8289-254391AFB2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8CA9D27-F143-4BAB-8289-254391AFB2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8CA9D27-F143-4BAB-8289-254391AFB2A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8CA9D27-F143-4BAB-8289-254391AFB2A7} = {F6F18F7F-4E0C-4105-8683-E62DA14CBE4C}
+	EndGlobalSection
+EndGlobal
