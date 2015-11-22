@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Serialization;
+using Microsoft.Win32;
 
 namespace ManVan
 {
@@ -13,8 +17,14 @@ namespace ManVan
         {
             OpenDetailsCommand = new OpenDetailsCommand(this);
             NewEntryCommand = new NewEntryCommand(this);
+            ImportCommand = new ImportCommand(this);
+            ExportCommand = new ExportCommand(this);
             Entries = LocalDataService.Load();
         }
+
+        public ExportCommand ExportCommand { get; set; }
+
+        public ImportCommand ImportCommand { get; set; }
 
         public NewEntryCommand NewEntryCommand { get; }
 
@@ -32,9 +42,9 @@ namespace ManVan
             }
         }
 
-        public ObservableCollection<MainEntryViewModel> Entries { get; set; }
+        public ObservableCollection<EntryViewModel> Entries { get; set; }
 
-        public MainEntryViewModel SelectedEntry { get; set; }
+        public EntryViewModel SelectedEntry { get; set; }
 
         public void Refresh()
         {
@@ -58,7 +68,7 @@ namespace ManVan
         }
     }
 
-    public class MainEntryViewModel : INotifyPropertyChanged
+    public class EntryViewModel : INotifyPropertyChanged
     {
 
         private int _year = 1900;
@@ -226,7 +236,7 @@ namespace ManVan
 
         public void Execute(object parameter)
         {
-            var entry = new MainEntryViewModel()
+            var entry = new EntryViewModel()
             {
                 Index = _viewModel.Entries.Count + 1
             };
@@ -246,6 +256,117 @@ namespace ManVan
             if (_viewModel.Entries.Count > 0)
                 LocalDataService.Save(_viewModel.Entries);
             _viewModel.Refresh();
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        internal virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public class ImportCommand : ICommand
+    {
+        private readonly MainWindowViewModel _viewModel;
+
+        public ImportCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var dlg = new OpenFileDialog()
+            {
+                Multiselect = false,
+                Filter = "ManVan Entry Files|*.manvan",
+                InitialDirectory = Environment.GetFolderPath(
+                    Environment.SpecialFolder.Desktop),
+            };
+            var result = dlg.ShowDialog();
+            if (result.HasValue && !result.Value)
+            {
+                return;
+            }
+            try
+            {
+                var path = dlg.FileName;
+                var file = new FileInfo(path);
+                if (!file.Exists)
+                    throw new FileNotFoundException("The file does not exist.");
+                var str = File.ReadAllText(file.FullName);
+                var entries = _viewModel.Entries;
+                var xs = new XmlSerializer(entries.GetType());
+                var list = (ObservableCollection<EntryViewModel>)xs.Deserialize(new StringReader(str));
+                list.ToList().ForEach(x => entries.Add(x));
+                _viewModel.Refresh();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Unexpected Error: " + exception.Message);
+            }
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        internal virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public class ExportCommand : ICommand
+    {
+        private readonly MainWindowViewModel _viewModel;
+
+        public ExportCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var dlg = new SaveFileDialog()
+            {
+                DefaultExt = "manvan",
+                Filter = "ManVan Entry Files|*.manvan",
+                RestoreDirectory = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                FileName = "manvan_" + DateTime.Now.ToString("yyyy-MM-dd"),
+            };
+            var result = dlg.ShowDialog();
+            if (result.HasValue && !result.Value)
+            {
+                return;
+            }
+            try
+            {
+                var entries = _viewModel.Entries;
+
+                var xs = new XmlSerializer(entries.GetType());
+
+                var path = dlg.FileName;
+
+                using (TextWriter writer = new StreamWriter(path))
+                {
+                    xs.Serialize(writer, entries);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Unexpected Error: " + exception.Message);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

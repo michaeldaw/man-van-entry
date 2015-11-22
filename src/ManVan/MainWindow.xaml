@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ManVan"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Man Van Data Entry" Height="350" Width="900" Background="#FFF8F8F8" WindowStartupLocation="CenterScreen">
+        Title="Man Van Data Entry" Height="600" Width="925" Background="#FFF8F8F8" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:MainWindowViewModel></local:MainWindowViewModel>
     </Window.DataContext>
@@ -18,8 +18,8 @@
         <Button Command="{Binding NewEntryCommand}" Style="{StaticResource ButtonOne}"
                 Margin="5" HorizontalAlignment="Left" Width="110">New Entry</Button>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="5" HorizontalAlignment="Right" Width="110" Style="{StaticResource ButtonOne}">Import</Button>
-            <Button Margin="5" HorizontalAlignment="Right" Width="110" Style="{StaticResource ButtonOne}">Export</Button>
+            <Button Command="{Binding ImportCommand}" Margin="5" HorizontalAlignment="Right" Width="110" Style="{StaticResource ButtonOne}">Import</Button>
+            <Button Command="{Binding ExportCommand}" Margin="5" HorizontalAlignment="Right" Width="110" Style="{StaticResource ButtonOne}">Export</Button>
             <Button Margin="5" HorizontalAlignment="Right" Width="110" Style="{StaticResource ButtonOne}" Visibility="{Binding ExportVisibility}">Export Labels</Button>
         </StackPanel>
         <DataGrid Style="{StaticResource DataGridStyle}"

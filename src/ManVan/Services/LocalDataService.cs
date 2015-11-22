@@ -12,7 +12,7 @@ namespace ManVan
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             + "\\ManVan\\entries.manvan";
 
-        public static void Save(IEnumerable<MainEntryViewModel> entries)
+        public static void Save(IEnumerable<EntryViewModel> entries)
         {
             var xs = new XmlSerializer(entries.GetType());
 
@@ -29,7 +29,7 @@ namespace ManVan
             }
         }
 
-        public static ObservableCollection<MainEntryViewModel> Load()
+        public static ObservableCollection<EntryViewModel> Load()
         {
             var file = new FileInfo(StoragePath);
             if (file.DirectoryName == null)
@@ -38,11 +38,11 @@ namespace ManVan
             if (!dir.Exists)
                 Directory.CreateDirectory(file.DirectoryName);
             if (!file.Exists)
-                return new ObservableCollection<MainEntryViewModel>();
+                return new ObservableCollection<EntryViewModel>();
             var str = File.ReadAllText(file.FullName);
 
-            var xs = new XmlSerializer(typeof(ObservableCollection<MainEntryViewModel>));
-            var list = (ObservableCollection<MainEntryViewModel>)xs.Deserialize(new StringReader(str));
+            var xs = new XmlSerializer(typeof(ObservableCollection<EntryViewModel>));
+            var list = (ObservableCollection<EntryViewModel>)xs.Deserialize(new StringReader(str));
             return list;
         }
     }
