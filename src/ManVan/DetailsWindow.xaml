@@ -42,9 +42,9 @@
             <Label>Y:</Label>
             <TextBox VerticalAlignment="Center" Width="40" Text="{Binding Year}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
             <Label>M:</Label>
-            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Month}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
+            <TextBox VerticalAlignment="Center" Width="26" Text="{Binding Month}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
             <Label>D:</Label>
-            <TextBox VerticalAlignment="Center" Width="20" Text="{Binding Day}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
+            <TextBox VerticalAlignment="Center" Width="26" Text="{Binding Day}" GotFocus="UIElement_OnGotFocus" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
         </StackPanel>
 
         <Label Grid.Column="0"  Grid.Row="3" Style="{DynamicResource FormLabelStyle}">Street Address:</Label>
