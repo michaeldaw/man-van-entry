@@ -21,7 +21,7 @@ namespace ManVan
             AddressBookDirectoryPath).GetFiles("*.LeitzAB")
             .Select(x => Path.GetFileNameWithoutExtension(x.Name)).ToArray();
 
-        public void CreateNew(string name, IEnumerable<AddressModel> addresses)
+        public static void CreateNew(string name, IEnumerable<AddressModel> addresses)
         {
             var book = new AddressBookModel(name);
             book.Addresses.AddRange(addresses);
@@ -29,7 +29,7 @@ namespace ManVan
             doc.Save(GetFileForBookName(name));
         }
 
-        public void AppendTo(string name, IEnumerable<AddressModel> addresses)
+        public static void AppendTo(string name, IEnumerable<AddressModel> addresses)
         {
             var text = File.ReadAllText(GetFileForBookName(name));
             File.Delete(GetFileForBookName(name));

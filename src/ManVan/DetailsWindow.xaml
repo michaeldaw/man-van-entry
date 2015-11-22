@@ -54,7 +54,7 @@
         <TextBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Text="{Binding City}" Style="{DynamicResource FormTextBoxStyle}"></TextBox>
 
         <Label Grid.Column="0"  Grid.Row="5" Style="{DynamicResource FormLabelStyle}">Province:</Label>
-        <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Text="AB" SelectedItem="{Binding Province}">
+        <ComboBox SelectedValue="{Binding Province}" SelectedValuePath="Content" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Text="AB">
             <ComboBoxItem>AB</ComboBoxItem>
             <ComboBoxItem>BC</ComboBoxItem>
             <ComboBoxItem>MB</ComboBoxItem>

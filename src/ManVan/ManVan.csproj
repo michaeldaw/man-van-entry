@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddressBookViewModel.cs" />
+    <Compile Include="AddressBookWindow.xaml.cs">
+      <DependentUpon>AddressBookWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DetailsWindow.xaml.cs">
       <DependentUpon>DetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -63,6 +67,10 @@
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Services\LeitzAddressBookService.cs" />
     <Compile Include="Services\LocalDataService.cs" />
+    <Page Include="AddressBookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

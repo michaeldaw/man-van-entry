@@ -19,8 +19,18 @@ namespace ManVan
             NewEntryCommand = new NewEntryCommand(this);
             ImportCommand = new ImportCommand(this);
             ExportCommand = new ExportCommand(this);
+            ExportLabelsCommand = new ExportLabelsCommand(this);
+            ClearCommand = new ClearCommand(this);
             Entries = LocalDataService.Load();
+
+            _exportVisibility = LeitzAddressBookService.IsLeitzIconInstalled
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
+        
+        public ClearCommand ClearCommand { get; set; }
+
+        public ExportLabelsCommand ExportLabelsCommand { get; set; }
 
         public ExportCommand ExportCommand { get; set; }
 
@@ -77,6 +87,7 @@ namespace ManVan
         private int _age;
         private string _lastName;
         private string _firstName;
+        private string _province = "AB";
 
         public Guid Id { get; } = new Guid();
         public DateTime DateEntered { get; } = DateTime.Now;
@@ -121,7 +132,17 @@ namespace ManVan
         public string ReferralMethod { get; set; }
         public bool FamilyHistory { get; set; }
         public double PsaValue { get; set; }
-        public string Province { get; set; }
+
+        public string Province
+        {
+            get { return _province; }
+            set
+            {
+                _province = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Address { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
@@ -366,6 +387,91 @@ namespace ManVan
             catch (Exception exception)
             {
                 MessageBox.Show("Unexpected Error: " + exception.Message);
+            }
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        internal virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public class ExportLabelsCommand : ICommand
+    {
+        private readonly MainWindowViewModel _viewModel;
+
+        public ExportLabelsCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var directory = new DirectoryInfo(
+                    LeitzAddressBookService.AddressBookDirectoryPath);
+            if (!directory.Exists)
+                throw new Exception("Directory should always exist here");
+
+            var exportWindow = new AddressBookWindow();
+            var result = exportWindow.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                var context = (AddressBookViewModel) exportWindow.DataContext;
+                if (LeitzAddressBookService.ExistingAddressBookNames.Contains(
+                    context.Name))
+                {
+                    LeitzAddressBookService.AppendTo(context.Name,
+                        _viewModel.Entries.Select(x => x.ToAddressModel));
+                }
+                else
+                {
+                    LeitzAddressBookService.CreateNew(context.Name,
+                        _viewModel.Entries.Select(x => x.ToAddressModel));
+                }
+            }
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        internal virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+    
+    public class ClearCommand : ICommand
+    {
+        private readonly MainWindowViewModel _viewModel;
+
+        public ClearCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var result = MessageBox.Show(
+                "Are you sure you want to clear all the listed entries?\n" +
+                "\nThis action cannot be undone.", "Clear Entries?",
+                MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _viewModel.Entries = new ObservableCollection<EntryViewModel>();
+                LocalDataService.Save(_viewModel.Entries);
+                _viewModel.Refresh();
             }
         }
 

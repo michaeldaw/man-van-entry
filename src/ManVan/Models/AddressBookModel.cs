@@ -29,12 +29,12 @@ namespace ManVan
         public XDocument ToDoc =>
             new XDocument(
                 new XDeclaration("1.0", "utf-8", "no"),
-                new XElement("Addresses",
+                new XElement("AddressBook",
                     AddressElements));
 
         public XDocument MergeWithExisting(XDocument doc)
         {
-            var addresses = doc.Element("Addresses");
+            var addresses = doc.Element("AddressBook");
             if (addresses == null)
                 return null;
             addresses.Add(AddressElements);
