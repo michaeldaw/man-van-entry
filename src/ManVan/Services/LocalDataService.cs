@@ -12,6 +12,26 @@ namespace ManVan
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             + "\\ManVan\\entries.manvan";
 
+        public static void Backup(IEnumerable<EntryViewModel> entries)
+        {
+            var xs = new XmlSerializer(entries.GetType());
+
+            var path = StoragePath;
+            var file = new FileInfo(path);
+            if (file.DirectoryName == null)
+                throw new Exception("DirectoryName should not be null");
+            if (!Directory.Exists(file.DirectoryName))
+                Directory.CreateDirectory(file.DirectoryName);
+            var newFileName = "entries_" + DateTime.Now.ToString(
+                "yyyyMMddhhmmss") + ".manvan";
+            var newFilePath = Path.Combine(
+                file.DirectoryName, newFileName);
+            using (TextWriter writer = new StreamWriter(newFilePath))
+            {
+                xs.Serialize(writer, entries);
+            }
+        }
+
         public static void Save(IEnumerable<EntryViewModel> entries)
         {
             var xs = new XmlSerializer(entries.GetType());

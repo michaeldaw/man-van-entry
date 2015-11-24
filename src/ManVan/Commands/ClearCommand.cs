@@ -37,6 +37,7 @@ namespace ManVan
 
             if (result == ConfirmResult.Affirmative)
             {
+                LocalDataService.Backup(_viewModel.Entries);
                 _viewModel.Entries = new ObservableCollection<EntryViewModel>();
                 LocalDataService.Save(_viewModel.Entries);
                 _viewModel.Refresh();
